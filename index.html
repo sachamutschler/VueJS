@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface Vuejs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <!--v-model pour le texte réactif-->
+                <p class="jumbotron">Login : <input type="text" v-model="user"> | Vous êtes connecté en tant que {{ user }}</p>
+            </div>
+            <!--v-if avec condition pour rendre réactif "Produits commandés", on l'affiche si commandes > 0 -->
+            <h1 class="display-4" v-if="commandes.length>0">Produits commandés</h1>
+                <ul>
+                    <!--On affiche avec v-for (boucle en quelque sorte), sous forme de liste les commandes-->
+                    <li v-for="commande in commandes">
+                        {{ commande }}
+                    </li>
+                </ul>
+
+
+            <!--Déclaration de la variable pour la Class "affichage", modifiable plus bas-->
+            <h1 v-bind:class="affichage">Produits disponibles</h1>
+            <div class="row">
+                <div class="col-3" v-for="produit in produits">
+                    <p class="jumbotron">{{ produit }}
+                        <button v-on:click="commander(produit)">Commandez ici</button>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+        //déclaration d'une instance de Vue
+        var app = new Vue({
+            el:"#app",
+            //données stockées :
+            data: {
+                user: "Sacha",
+                produits: ["Pizza","Hamburger","Tacos","Cheesburger"],
+                commandes: [],
+                affichage: "display-4",
+            },
+            //méthod pour afficher les produits commandés + console.log pour le test
+            methods: {
+                commander: function(produit){
+                    this.commandes.push(produit);
+                    console.log("ça marche");
+                }
+            },
+        })
+    </script>
+</body>
+</html>
